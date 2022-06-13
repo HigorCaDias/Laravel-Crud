@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\tabelaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Chamando a função do controller
+Route::get('/', [tabelaController::class, 'buscaMarcaProduto'])->name('dbBanco');
+Route::post('/cadastroMarca', [tabelaController::class, 'cadastroMarca']);
