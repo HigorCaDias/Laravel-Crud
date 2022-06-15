@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 //Chamando a função do controller
 Route::get('/', [tabelaController::class, 'buscaMarcaProduto'])->name('dbBanco');
 Route::post('/cadastroMarca', [tabelaController::class, 'cadastroMarca']);
+Route::post('/cadastroProduto', [tabelaController::class, 'cadastroProduto']);
+/* Para especificar a solicitação sempre se passa o id na URL da Rota */
+Route::delete('/cadastroDeletarMarca/{id}', [tabelaController::class, 'cadastroDeletarMarca']);
+Route::get('/edit/{id}', [tabelaController::class, 'edit']);
+Route::post('/update/{id}', [tabelaController::class, 'update']);
+

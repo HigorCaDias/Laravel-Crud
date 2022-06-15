@@ -60,10 +60,49 @@ https://templatemo.com/tm-556-catalog-z
         </form>
     </div>
     <div class="container-fluid tm-container-content tm-mt-60">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ExemploModalCentralizado">
-            Cadastro marca Produto
-        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ExemploModalCentralizado">Cadastro marca Produto</button>
         <div class="row mb-4">
+    <div class="container-fluid tm-container-content tm-mt-60">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadastroProduto">teste</button>
+        <div class="row mb-4">
+            <div class="col table-responsive" style="text-align: center">
+            <table class="table table-striped table-hover">
+                <h4>Titulo</h4>
+                        <thead class="tbl-cabecalho">
+                            <tr>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Produto</th>
+                                <th scope="col">Estoque</th>
+                                <th scope="col">Valor pago</th>
+                                <th scope="col">Valor revenda</th>
+                                <th scope="col">Deletar</th>
+                                <th scope="col">Editar</th>
+                            </tr>
+                        </thead>
+                        <!-- Para exibir os dados de uma tabela dentro da view de forma direta -->
+                        @foreach ($produto as $produto)
+                        <tbody>
+                            <td>{{ $produto ->idMarca }}</td>
+                            <td>{{ $produto ->produto }}</td>
+                            <td>{{ $produto ->Estoque }}</td>
+                            <td>{{ $produto ->valorPago }}</td>
+                            <td>{{ $produto ->valorRevenda }}</td>
+                            <td>
+                                <!-- Criação do Botao Delete, é necessario passar a rota que será redirecionado
+                                e tambem a tabela logo em seguida do campo $produto(tabela)->id(campo) -->
+                                <form action="/cadastroDeletarMarca/{{$produto->id}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger delete-btn">Deletar</button>
+                                </form>
+                            </td>
+                            <td><a href="edit/{{ $produto->id }}" class="btn btn-info edit-btn">Editar</a></td>
+                        </tbody>
+                        @endforeach
+
+            </table>
+         </div>
+         <br>
             <h2 class="col-6 tm-text-primary">
                 Latest Photos
             </h2>
@@ -143,17 +182,49 @@ https://templatemo.com/tm-556-catalog-z
                 </form>
                 </div>
           </div>
+        </div>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="cadastroProduto" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="cadastroProduto">Cadastre a marca</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
             <div class="modal-body">
-                <form method="POST" action="/cadastroMarca">
+                <form method="POST" action="/cadastroProduto">
+                    <!--Chave necessaria para segurança do Laravel-->
                     @csrf
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Marca</label>
-                      <input type="text" class="form-control" id="marcaProduto" name="marcaProduto">
+                      <label for="exampleInputEmail1">Produto</label>
+                      <input type="text" class="form-control" id="produto" name="produto">
                       <small id="emailHelp" class="form-text text-muted"> </small>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">classe</label>
-                      <input type="text" class="form-control" id="classeProduto" name="classeProduto">
+                        <label for="exampleInputEmail1">Marca do produto</label>
+                      <select class="form-select" aria-label="Default select example" name="idMarca" id="idMarca">
+                        <!-- Referencia a varivel dentro do Controller-->
+                        @foreach ($marca as $marca)
+                        <!-- Busca o valor o campo ID da tabela Marca e dentro do option é o campo marca dentro da tabela-->
+                        <option value="{{$marca->id}}"> {{$marca->marca}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Estoque</label>
+                      <input type="text" class="form-control" id="Estoque" name="Estoque">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Valor pago</label>
+                      <input type="text" class="form-control" id="valorPago" name="valorPago">
+                      <small id="emailHelp" class="form-text text-muted"> </small>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Valor revenda</label>
+                      <input type="text" class="form-control" id="valorRevenda" name="valorRevenda">
                     </div>
                 </div>
                 <div class="modal-footer">
