@@ -15,7 +15,8 @@ class tabelaController extends Controller
         Get: pega todos valores do banco
         Where: alguma linha em especifica */
         $marca = Marca::get();
-        $produto = Produtos::get();
+        //with nesse caso funciona para chamar a função realizada dentro da model produto
+        $produto = Produtos::with('marca')->get();
 
         //Habilita os valores na view
         return view('welcome',compact('marca','produto'));
@@ -52,8 +53,10 @@ class tabelaController extends Controller
     public function edit($id){
         // Variavel $event retona todos os  valor da tabela Produto no campo ID dentro da SC selecionada
         $event = Produtos::findOrFail($id);
+        //passsando a variavel $marca pra dentro da funcao edit
+        $marca = Marca::get();
         //Retorna a variavel com os dados já cadastrados
-        return view('editar',['event'=>$event], compact('event'));
+        return view('editar',['event'=>$event], compact('event','marca'));
     }
 
     //Função Update é a que finaliza o processo salvando as alterações no banco

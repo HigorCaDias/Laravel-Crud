@@ -8,13 +8,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="fontawesome/css/all.min.css">
     <link rel="stylesheet" href="css/templatemo-style.css">
-<!--
-
-TemplateMo 556 Catalog-Z
-
-https://templatemo.com/tm-556-catalog-z
-
--->
+    <link href="{{URL::asset('/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></script>
 </head>
 <body>
     <!-- Page Loader -->
@@ -82,7 +77,9 @@ https://templatemo.com/tm-556-catalog-z
                         <!-- Para exibir os dados de uma tabela dentro da view de forma direta -->
                         @foreach ($produto as $produto)
                         <tbody>
-                            <td>{{ $produto ->idMarca }}</td>
+                            <!-- primeiro campo se passa a tabela origem e a coluna que está sendo referenciada no caso
+                                tabela marca na coluna marca sendo exibida na tabela produto (chave estrangeira) -->
+                            <td>{{ $produto ->marca->marca }}</td>
                             <td>{{ $produto ->produto }}</td>
                             <td>{{ $produto ->Estoque }}</td>
                             <td>{{ $produto ->valorPago }}</td>
